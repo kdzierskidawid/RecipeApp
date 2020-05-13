@@ -1,0 +1,13 @@
+body {
+  position: relative;
+}
+
+#form-wrapper {
+  width: 500px;           /* Set this to your convenience */
+  height: 200px;          /* Set this to your convenience */
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  margin-top: -100px;     /* Half of height */
+  margin-left: -250px;     /* Half of width */
+}

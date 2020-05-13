@@ -1,0 +1,63 @@
+<!-- Default form login -->
+<body>
+<div id="form-wrapper">
+  <form>
+    <!-- Default form login -->
+    <form class="text-center border border-light p-5">
+
+      <p class="h4 mb-4">Sign up</p>
+
+      <!-- Email -->
+      <input type="email" id="email" name="email" class="form-control mb-4" placeholder="Email" [(ngModel)]="user.email">
+
+      <!-- Password -->
+      <input type="password" id="password" name="password" class="form-control mb-4" placeholder="Password" [(ngModel)]="user.password">
+
+      <!-- firstname -->
+      <input type="text" id="firstname" name="firstname" class="form-control mb-4" placeholder="Firstname" [(ngModel)]="user.firstname">
+
+      <!-- surname -->
+      <input type="text" id="surname" name="surname" class="form-control mb-4" placeholder="Surname" [(ngModel)]="user.surname">
+
+      <!-- phone -->
+      <input type="text" id="phone" name="phone" class="form-control mb-4" placeholder="Phone number" [(ngModel)]="user.phoneNumber">
+
+      <div class="d-flex justify-content-around">
+        <div>
+          <!-- Remember me -->
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+            <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+          </div>
+        </div>
+        <div>
+          <!-- Forgot password -->
+          <a href="">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Sign in button -->
+      <div class="text-center">
+        <button class="btn red-motive white-text btn-lg"
+                (click)="register() " >Sign up
+        </button>
+      </div>
+
+      <!-- Register -->
+      <p>Already a have account?
+        <a href="/login">Login</a>
+      </p>
+
+      <!-- Social login -->
+      <p>or sign in with:</p>
+
+      <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
+      <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
+      <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
+      <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
+
+    </form>
+  </form>
+</div>
+</body>
+
