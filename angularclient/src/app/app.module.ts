@@ -7,8 +7,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {UserService} from './components/services/user.service';
+import {AuthService} from './components/services/auth.service';
+import {TokenStorage} from './components/services/token.storage';
+import {Interceptor} from './components/services/inteceptor';
+import { RecipesComponent } from './components/recipes/recipes.component';
+import { AddRecipeComponent } from './components/recipes/add-recipe/add-recipe.component';
 
 
 
@@ -18,7 +24,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     NavbarComponent,
     WelcomeComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    RecipesComponent,
+    AddRecipeComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +38,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FormsModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [UserService, AuthService, TokenStorage, TokenStorage, WelcomeComponent,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

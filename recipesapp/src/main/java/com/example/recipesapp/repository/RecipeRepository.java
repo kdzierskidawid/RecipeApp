@@ -1,7 +1,6 @@
 package com.example.recipesapp.repository;
 
-
-import com.example.recipesapp.domain.User;
+import com.example.recipesapp.domain.Recipe;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,9 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
-    User findByEmail(String email);
+public interface RecipeRepository extends MongoRepository<Recipe, String> {
+
+    Recipe findByName(String name);
 
     @Query("{ 'email' : ?0 }")
-    List<User> findUserByEmail(String email);
+    List<Recipe> findRecipeByName(String email);
 }

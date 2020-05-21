@@ -23,12 +23,13 @@ export class UserService {
   }
 
   public getByEmail(email: string): Observable<User> {
+    //const headers = {Authorization: sessionStorage.getItem('AuthToken')};
     console.log('user.service');
-    return this.http.get<User>(this.userURL + 'getByEmail/' + email);
+    return this.http.get<User>(this.userURL  + email, {responseType: 'json'});
   }
 
   public getUserByEmail(email: string): Observable<User> {
-    return this.http.get<User>(this.userURL + 'byEmail/' + email, {responseType: 'json'});
+    return this.http.get<User>(this.userURL + 'getByEmail/' + email, {responseType: 'json'});
   }
 
   public checkIfUserExists(email: string): Observable<boolean> {

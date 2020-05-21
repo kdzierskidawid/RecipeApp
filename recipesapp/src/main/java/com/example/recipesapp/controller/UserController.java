@@ -26,7 +26,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -48,6 +48,12 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
+    @GetMapping("/listUser")
+    public List<User> listUser() {
+        return userService.findAll();
+    }
+
 
     @GetMapping("/all")
     public List<User> getStudents(){
