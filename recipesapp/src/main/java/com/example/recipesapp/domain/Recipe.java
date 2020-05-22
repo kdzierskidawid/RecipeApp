@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 /*
@@ -22,21 +23,24 @@ public class Recipe {
     private String preparationTime;
     private String portion;
     private String description;
-    private HashMap<String, String> recipes = new HashMap<String, String>();
+    private String category;
+    private HashMap<String, String> ingredients;
+    private User userId;
 
     protected Recipe() {
-        this.recipes = new HashMap<>();
+        this.ingredients = new HashMap<>();
     }
 
 
-    public Recipe(String id, String name, String preparationTime, String portion, String description, HashMap<String, String> recipes) {
+    public Recipe(String id, String name, String preparationTime, String portion, String description,
+                  HashMap<String, String> ingredients, User userId, String category) {
         this.id = id;
         this.name = name;
         this.preparationTime = preparationTime;
         this.portion = portion;
         this.description = description;
-        this.recipes = recipes;
+        this.category = category;
+        this.ingredients = ingredients;
+        this.userId = userId;
     }
-
-
 }

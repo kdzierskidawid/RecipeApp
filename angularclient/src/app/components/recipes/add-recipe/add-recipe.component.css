@@ -1,0 +1,38 @@
+.forma{
+  margin-left: -20%;
+  margin-top: 2%;
+  max-width: 80%;
+}
+
+.forma2{
+  margin-top: 2%;
+  max-width: 50%;
+  margin-left: 15%;
+}
+
+
+textarea{
+  margin-left: -7%;
+  width: 500%;
+  max-width: 500%;
+  overflow:hidden;
+  resize: both;
+}
+
+
+.imgdescription{
+  margin-top: 2%;
+  max-width: 600px;
+}
+
+.card{
+  min-height: 370px;
+  min-width: 350px;
+  max-width: 350px;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.ingredientsList{
+  margin-left: 0%;
+}

@@ -12,6 +12,6 @@ public interface RecipeRepository extends MongoRepository<Recipe, String> {
 
     Recipe findByName(String name);
 
-    @Query("{ 'email' : ?0 }")
-    List<Recipe> findRecipeByName(String email);
+    @Query("{ 'name' : ?0 }")
+    List<Recipe> findRecipeByName(String name);
 }

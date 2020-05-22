@@ -32,26 +32,37 @@ export class LoginComponent implements OnInit {
         console.log(this.password);
         this.token.saveToken(data.token);
         console.log(data.token);
+
+
+
+        this.user.email = this.email;
+        if (sessionStorage.getItem('AuthToken') != null){
+          this.userService.checkIfUserExists(this.email).subscribe(
+            exists => {
+              console.log(exists);
+              //this.router.navigate(['welcome']);
+            }
+          );
+
+          this.userService.getUserByEmail(this.user.email).subscribe(
+            user => {
+              console.log(user);
+              this.user = user;
+              console.log(this.user);
+              //this.router.navigate(['welcome']);
+            }
+          );
+        }
+
+
+
+
         this.router.navigate(['welcome']);
       }
     );
 
-    this.userService.checkIfUserExists(this.email).subscribe(
-      data => {
-        console.log(data);
-        //this.router.navigate(['welcome']);
-      }
-    );
 
-    this.user.email = this.email;
-    this.userService.getUserByEmail(this.user.email).subscribe(
-      data => {
-        console.log(data);
-        this.user = data;
-        console.log(this.user);
-        //this.router.navigate(['welcome']);
-      }
-    );
+
   }
 
 }

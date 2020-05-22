@@ -13,7 +13,6 @@ import {UserService} from './components/services/user.service';
 import {AuthService} from './components/services/auth.service';
 import {TokenStorage} from './components/services/token.storage';
 import {Interceptor} from './components/services/inteceptor';
-import { RecipesComponent } from './components/recipes/recipes.component';
 import { AddRecipeComponent } from './components/recipes/add-recipe/add-recipe.component';
 
 
@@ -25,7 +24,6 @@ import { AddRecipeComponent } from './components/recipes/add-recipe/add-recipe.c
     WelcomeComponent,
     SignUpComponent,
     LoginComponent,
-    RecipesComponent,
     AddRecipeComponent,
   ],
   imports: [
