@@ -27,6 +27,7 @@ public class Recipe {
     private HashMap<String, String> ingredients;
     private User userId;
 
+
     protected Recipe() {
         this.ingredients = new HashMap<>();
     }

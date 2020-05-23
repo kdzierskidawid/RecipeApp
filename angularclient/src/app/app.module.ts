@@ -14,6 +14,13 @@ import {AuthService} from './components/services/auth.service';
 import {TokenStorage} from './components/services/token.storage';
 import {Interceptor} from './components/services/inteceptor';
 import { AddRecipeComponent } from './components/recipes/add-recipe/add-recipe.component';
+import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
+import { InputFileConfig, InputFileModule } from 'ngx-input-file';
+
+const config: InputFileConfig = {
+  fileAccept: '*',
+  fileLimit: 4
+};
 
 
 
@@ -25,6 +32,7 @@ import { AddRecipeComponent } from './components/recipes/add-recipe/add-recipe.c
     SignUpComponent,
     LoginComponent,
     AddRecipeComponent,
+    PhotoUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +42,7 @@ import { AddRecipeComponent } from './components/recipes/add-recipe/add-recipe.c
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    InputFileModule.forRoot(config),
     AppRoutingModule,
   ],
   providers: [UserService, AuthService, TokenStorage, TokenStorage, WelcomeComponent,

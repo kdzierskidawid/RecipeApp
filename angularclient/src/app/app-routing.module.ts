@@ -4,6 +4,7 @@ import {WelcomeComponent} from './components/welcome/welcome.component';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {LoginComponent} from './components/login/login.component';
 import {AddRecipeComponent} from './components/recipes/add-recipe/add-recipe.component';
+import {PhotoUploadComponent} from './components/photo-upload/photo-upload.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'addrecipes', component: AddRecipeComponent,
-  }
+  },
+  {path: 'photoupload', component: PhotoUploadComponent},
 
 ];
 
