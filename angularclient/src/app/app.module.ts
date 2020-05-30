@@ -16,6 +16,10 @@ import {Interceptor} from './components/services/inteceptor';
 import { AddRecipeComponent } from './components/recipes/add-recipe/add-recipe.component';
 import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
 import { InputFileConfig, InputFileModule } from 'ngx-input-file';
+import { AllRecipesComponent } from './components/recipes/all-recipes/all-recipes.component';
+import { RecipeDetailsComponent } from './components/recipes/recipe-details/recipe-details.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { UserRecipesComponent } from './components/recipes/user-recipes/user-recipes.component';
 
 const config: InputFileConfig = {
   fileAccept: '*',
@@ -33,6 +37,10 @@ const config: InputFileConfig = {
     LoginComponent,
     AddRecipeComponent,
     PhotoUploadComponent,
+    AllRecipesComponent,
+    RecipeDetailsComponent,
+    FooterComponent,
+    UserRecipesComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,12 +53,12 @@ const config: InputFileConfig = {
     InputFileModule.forRoot(config),
     AppRoutingModule,
   ],
-  providers: [UserService, AuthService, TokenStorage, TokenStorage, WelcomeComponent,
+  providers: [UserService, AuthService, TokenStorage, TokenStorage, WelcomeComponent, PhotoUploadComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

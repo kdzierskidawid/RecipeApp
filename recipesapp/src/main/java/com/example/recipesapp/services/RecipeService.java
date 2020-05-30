@@ -30,5 +30,8 @@ public class RecipeService {
         return recipeRepository.findById(id);
     }
 
+    public void deleteOne(Recipe recipe) {
+        recipeRepository.delete(recipe);
+    }
 
 }

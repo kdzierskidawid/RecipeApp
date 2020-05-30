@@ -26,7 +26,7 @@ public class Recipe {
     private String category;
     private HashMap<String, String> ingredients;
     private User userId;
-
+    private Photo photo;
 
     protected Recipe() {
         this.ingredients = new HashMap<>();
@@ -34,7 +34,7 @@ public class Recipe {
 
 
     public Recipe(String id, String name, String preparationTime, String portion, String description,
-                  HashMap<String, String> ingredients, User userId, String category) {
+                  HashMap<String, String> ingredients, User userId, String category, Photo photo) {
         this.id = id;
         this.name = name;
         this.preparationTime = preparationTime;
@@ -43,5 +43,6 @@ public class Recipe {
         this.category = category;
         this.ingredients = ingredients;
         this.userId = userId;
+        this.photo = photo;
     }
 }

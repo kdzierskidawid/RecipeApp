@@ -1,10 +1,17 @@
+<div class="container">
 <div class="row">
   <div class="col">
     <div class="col">
-      <div class="imgdescription">
+      <input-file fileAccept=".png" fileLimit="1"
+                  placeholder="Dodaj mapę(.pgm)"
+                  (acceptedFile)="mapSelected = true"
+                  (deletedFile)="mapSelected = false"
+                  #mapInput>
+      </input-file>
+<!--      <div class="imgdescription">
         <img src="https://krytykakulinarna.com/wp-content/uploads/2020/03/kebab_przepis_4.jpg" alt="thumbnail"
              class="img-thumbnail">
-      </div>
+      </div>-->
       <div class="form-group col-md-2">
         <textarea id="w3mission" rows="15" cols="50" [ngModelOptions]="{standalone: true}"
                   [(ngModel)]="description"></textarea></div>
@@ -55,6 +62,8 @@
               <tr *ngFor="let recipient of map | keyvalue">
                 <td>{{recipient.key}} </td>
                 <td>{{recipient.value}}</td>
+                <button (click)="editIngredient(recipient.key)">Edit</button>
+                <button (click)="deleteIngredient(recipient.key)">Delete</button>
               </tr>
               </tbody>
             </table>
@@ -89,6 +98,7 @@
     </form>
   </div>
 </div>
+</div>
 <!--
         </div>-->
 
@@ -101,42 +111,3 @@
   <div class="col">col</div>
 </div>-->
 
-<!--przepisy na stronie głównej-->
-
-<!--
-<div class="card-deck">
-  <div class="card">
-    <img class="card-img-top" src="https://mdbootstrap.com/img/Others/documentation/img%20(75)-mini.jpg" alt="thumbnail"
-         class="img-thumbnail" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-        This content is a little bit longer.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-        This card has even longer content than the first to show that equal height action.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-</div>
--->
