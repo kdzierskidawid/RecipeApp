@@ -29,19 +29,19 @@ public class User {
     private String email;
     private String password;
     private boolean isActive;
-    private List<String> role;
+    private String role;
 
 /*
     @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
 */
 
     protected User() {
-        this.role = new ArrayList<>();
+
     }
 
     private VerificationToken verificationToken;
 
-    public User(String firstname, String surname, String phoneNumber, String email, String password, List<String> role, boolean isActive) {
+    public User(String firstname, String surname, String phoneNumber, String email, String password, String role, boolean isActive) {
         this.firstname = firstname;
         this.surname = surname;
         this.phoneNumber = phoneNumber;

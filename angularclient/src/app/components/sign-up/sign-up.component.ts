@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../model/User';
-import {UserService} from '../services/user.service';
+import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
@@ -23,43 +23,24 @@ export class SignUpComponent implements OnInit {
   }
 
   register(){
-/*    console.log('Register');
-    console.log(this.user);
-    this.userService.save(this.user).subscribe(
-      result => {
-        console.log('dodano');
 
-      },
-      error => {
-        console.log('błąd');
-        console.log(error);
+    this.userService.checkIfUserExists(this.user.email).subscribe(exists=>{
+      if(exists){
+       // this.toast.error('Użytkownik o takim email istnieje!!');
       }
-    );*/
-   /* this.userService.checkIfUserExists(this.user.email).subscribe(
-      response => {
-        document.getElementById('openModalButton').click();
-        if (response) {
-          this.showError();
-        } else {
-          this.userService.register(this.user).subscribe(
+      else{
+        this.user.role = 'ROLE_USER';
+        this.userService.register(this.user).subscribe(
             result => {
+              //this.toast.success('Zarejestrowano pomyślnie. Sprawdź email!');
               this.loading = false;
               console.log('Response' + result);
             },
             error => console.log('Error' + error));
-          console.log('User', this.user);
-        }
-      },
-      error => console.log(error)
-    );*/
-    this.userService.register(this.user).subscribe(
-      result => {
-        this.loading = false;
-        console.log('Response' + result);
-      },
-      error => console.log('Error' + error));
-  }
+      }
+    });
 
+  }
 
   showError() {
   }

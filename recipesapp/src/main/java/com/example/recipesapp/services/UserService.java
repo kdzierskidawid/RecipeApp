@@ -63,13 +63,16 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority());
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user.getRole()));
     }
 
-    private List<SimpleGrantedAuthority> getAuthority() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    private List<SimpleGrantedAuthority> getAuthority(String role) {
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
+    public void deleteOne(User user) {
+        userRepository.delete(user);
+    }
 
 
 }

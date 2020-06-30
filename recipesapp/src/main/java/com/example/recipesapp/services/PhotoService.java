@@ -2,6 +2,7 @@ package com.example.recipesapp.services;
 
 import com.example.recipesapp.CRUDService;
 import com.example.recipesapp.domain.Photo;
+import com.example.recipesapp.domain.Recipe;
 import com.example.recipesapp.repository.PhotoRepository;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -18,11 +19,20 @@ public class PhotoService implements CRUDService<Photo> {
     @Autowired
     PhotoRepository photoRepository;
 
-    public Photo addPhoto(String name, MultipartFile fileMap) throws IOException {
-        Binary binaryMapImage = new Binary(BsonBinarySubType.BINARY, fileMap.getBytes());
-        Photo photo = new Photo(name, binaryMapImage);
-        photo = photoRepository.save(photo);
-        return photo;
+    public Photo save(Photo photo) throws IOException {
+        return photoRepository.save(photo);
+    }
+
+    public Photo findOne(String name) {
+        return photoRepository.findByName(name);
+    }
+
+    public Photo exists(String name) {
+        return photoRepository.findByName(name);
+    }
+
+    public Photo findOneLarge(String name) {
+        return photoRepository.findByLargeImage(name);
     }
 
     @Override
@@ -45,8 +55,14 @@ public class PhotoService implements CRUDService<Photo> {
         return photoRepository.save(photo);
     }
 
+
+    public List<Photo> findAll() {
+        return photoRepository.findAll();
+    }
+
     @Override
     public void deleteOne(Photo photo) {
+        photoRepository.delete(photo);
     }
 
     @Override

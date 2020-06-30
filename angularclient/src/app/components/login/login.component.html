@@ -1,41 +1,43 @@
-<!-- Default form login -->
+<!--
+&lt;!&ndash; Default form login &ndash;&gt;
 <body>
 <div id="form-wrapper">
   <form>
-    <!-- Default form login -->
-    <form class="text-center border border-light p-5" action="#!">
+    &lt;!&ndash; Default form login &ndash;&gt;
+    <form class="text-center border border-light p-5" action="#!" autocomplete="off">
 
       <p class="h4 mb-4">Login</p>
 
-      <!-- Email -->
-      <input type="email" name="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail" [(ngModel)]="email">
+      &lt;!&ndash; Email &ndash;&gt;
+      <input type="email" name="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail" [(ngModel)]="email"
+      >
 
-      <!-- Password -->
+      &lt;!&ndash; Password &ndash;&gt;
       <input type="password" name="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" [(ngModel)]="password">
 
       <div class="d-flex justify-content-around">
         <div>
-          <!-- Remember me -->
+          &lt;!&ndash; Remember me &ndash;&gt;
           <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
             <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
           </div>
         </div>
         <div>
-          <!-- Forgot password -->
+          &lt;!&ndash; Forgot password &ndash;&gt;
           <a href="">Forgot password?</a>
         </div>
       </div>
 
-      <!-- Sign in button -->
+      &lt;!&ndash; Sign in button &ndash;&gt;
       <button class="btn btn-info btn-block my-4" type="submit" (click)="login()" >Sign in</button>
 
-      <!-- Register -->
+      &lt;!&ndash; Register &ndash;&gt;
       <p>Not a member?
         <a href="/signup">Register</a>
       </p>
 
-      <!-- Social login -->
+      &lt;!&ndash; Social login &ndash;&gt;
       <p>or sign in with:</p>
 
       <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
@@ -48,3 +50,37 @@
 </div>
 </body>
 
+-->
+<div class="wrapper fadeInDown wsokosc">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <!-- Login Form -->
+    <form>
+      <form class="text-center border border-light p-5" action="#!" autocomplete="off">
+
+        <p class="h4 mb-4">Login</p>
+
+        <input type="email" name="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail" autocomplete="off" [(ngModel)]="email"
+        >
+
+        <input type="password" name="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" autocomplete="off" [(ngModel)]="password">
+
+        <div class="d-flex justify-content-around">
+          <div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+              <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="btn btn-info btn-block my-4" type="submit" (click)="login()" >Sign in</button>
+
+        <p>Not a member?
+          <a href="/signup">Register</a>
+        </p>
+      </form>
+    </form>
+  </div>
+</div>

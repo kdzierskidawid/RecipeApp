@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RecipeRepository extends MongoRepository<Recipe, String> {
 
-    Recipe findByName(String name);
+    Recipe findByName(String recipeId);
 
     @Query("{ 'name' : ?0 }")
     List<Recipe> findRecipeByName(String name);

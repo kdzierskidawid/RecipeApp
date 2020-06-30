@@ -1,113 +1,189 @@
-<div class="container">
-<div class="row">
-  <div class="col">
-    <div class="col">
-      <input-file fileAccept=".png" fileLimit="1"
-                  placeholder="Dodaj mapę(.pgm)"
-                  (acceptedFile)="mapSelected = true"
-                  (deletedFile)="mapSelected = false"
-                  #mapInput>
-      </input-file>
-<!--      <div class="imgdescription">
-        <img src="https://krytykakulinarna.com/wp-content/uploads/2020/03/kebab_przepis_4.jpg" alt="thumbnail"
-             class="img-thumbnail">
-      </div>-->
-      <div class="form-group col-md-2">
-        <textarea id="w3mission" rows="15" cols="50" [ngModelOptions]="{standalone: true}"
-                  [(ngModel)]="description"></textarea></div>
+
+
+<!-- Modal: modalCart -->
+<form       (ngSubmit)="f.form.valid &&addRecipe()" #f="ngForm">
+<div class="addrecipe contact-form p-3 mb-5 rounded" style="background-color: #f0f0f0;">
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="text" class="form-control" id="inputName" placeholder="name" name="recipeName"
+                 [ngModelOptions]="{standalone: true}" [(ngModel)]="name"
+                 #recipeName="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && recipeName.invalid }"
+                 required
+                 pattern="[a-zA-Z\s]+"
+          ></div>
+        <small class="form-text text-muted mb-4" *ngIf="f.submitted && recipeName.errors?.required" >
+          Name is required
+        </small>
+        <small [hidden]="!recipeName.errors?.pattern" class="form-text text-muted mb-4" >
+          Wprowadzono zły format
+        </small>
+        <div class="form-group">
+          <input type="text" class="form-control" id="inputCategory" placeholder="Breakfast/Deser/Dinner/Evening - it will be easier to find your recipe!"
+                 [ngModelOptions]="{standalone: true}" [(ngModel)]="category"
+                 name="categoryName"
+                 #categoryName="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && categoryName.invalid }"
+                 required
+                 pattern="[a-zA-Z\s]+">
+        </div>
+        <small [hidden]="!categoryName.errors?.pattern" class="form-text text-muted mb-4" >
+          Wprowadzono zły format
+        </small>
+        <small class="form-text text-muted mb-4" *ngIf="f.submitted && categoryName.errors?.required">
+          Name is required
+        </small>
+        <div class="form-group">
+          <select class="form-control" (change)="selectPortion($event.target.value)">
+            <option selected disabled>Portion</option>
+            <option selected>1os</option>
+            <option selected>2os</option>
+            <option selected>3os</option>
+            <option selected>4os</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-control"
+                  (change)="selectPreparationTime($event.target.value)">
+            <option selected disabled>Time preparation</option>
+            <option selected>15'</option>
+            <option selected>30'</option>
+            <option selected>45'</option>
+            <option selected>60'</option>
+            <option selected>1h15'</option>
+            <option selected>1h30'</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn" data-toggle="modal" data-target="#ingredientsModal"
+                  style="min-width: 200px; background-color: 	#212121">Edit ingredients
+          </button>
+        </div>
+        <div class="form-group">
+          <table class="table">
+            <!-- Table head -->
+            <thead>
+            <tr>
+              <th>#</th>
+              <th><i class="fas fa-leaf mr-2 blue-text" aria-hidden="true"></i>Name</th>
+              <th><i class="fas fa-leaf mr-2 teal-text" aria-hidden="true"></i>Amount</th>
+            </tr>
+            </thead>
+            <!-- Table head -->
+
+            <!-- Table body -->
+            <tbody>
+            <tr *ngFor="let recipient of map | keyvalue; let i = index;">
+              <th scope="row">{{i + 1}}</th>
+              <td>{{recipient.key}}</td>
+              <td>{{recipient.value}}</td>
+            </tr>
+            </tbody>
+            <!-- Table body -->
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <textarea name="txtMsg" class="form-control" placeholder="Add description to your tasty recipe! Give some advices for the rest!"
+                    style="width: 100%; height: 150px;" [(ngModel)]="description"></textarea>
+        </div>
+        <div class="form-group">
+          <!--<input type="file" accept="image/*" (change)="changeListener($event)">-->
+          <input type="text" [(ngModel)]="imageFromLink" name="loadImageFromtheLink" [ngModelOptions]="{standalone: true}">
+          <button type="button" (click)="setImageSrcFromLink()" >Załaduj obraz</button>
+
+          <div *ngIf="image && !isImageFromLinkLoaded">
+            <img class="border border-primary" src="{{image}}" alt="" style="max-height: 300px; width: 300px;">
+          </div>
+          <div *ngIf="!isImageLoaded && !isImageFromLinkLoaded">
+            <div class="border border-primary" style="height: 200px; width: 300px;">
+            </div>
+          </div>
+          <div *ngIf="!isImageLoaded && imgFromLink">
+            <img class="border border-primary" src="{{imgFromLink.src}}" alt="" style="max-height: 300px; width: 300px;">
+          </div>
+        </div>
+        <form method="post">
+        <div class="form-group">
+          <button type="submit" class="btn" data-toggle="modal" data-target="#myModal" style="min-width: 200px; background-color: 	#212121">Add recipe
+          </button>
+        </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<!---->
+<!--Modal recipes-->
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="ingredientsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <input type="text" class="form-control" id="inputIngredients1" placeholder="ingredient"
+               [ngModelOptions]="{standalone: true}" [(ngModel)]="nameIngredient">
+        <input type="text" class="form-control" id="amountIngredients1" placeholder="amount"
+               [ngModelOptions]="{standalone: true}" [(ngModel)]="amount">
+        <button id="addRecipe1" type="button" class="btn btn-primary" (click)="addIngredient()"
+                style="margin-top: -6px">Add
+        </button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">ingredient</th>
+            <th scope="col">amount</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let recipient of map | keyvalue">
+            <td>{{recipient.key}} </td>
+            <td>{{recipient.value}}</td>
+            <button (click)="deleteIngredient(recipient.key)" class="btn-primary"><i class="far fa-window-close"></i>
+            </button>
+            <button (click)="editIngredient(recipient.key)" class="btn-primary"><i class="fas fa-pencil-alt"></i>
+            </button>
+
+            <!-- <button (click)="deleteIngredient(recipient.key)">Delete</button>
+             <button (click)="editIngredient(recipient.key)">Edit</button>-->
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Finish</button>
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="col">
-    <form class="forma">
-      <div class="card-header">Add recipe</div>
-      <div class="card-body text-primary">
-        <h5 class="card-title">Adding new recipe</h5>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputName">Name</label>
-            <input type="text" class="form-control" id="inputName" placeholder="name"
-                   [ngModelOptions]="{standalone: true}" [(ngModel)]="name">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputCategory">Category</label>
-            <input type="text" class="form-control" id="inputCategory" placeholder="category"
-                   [ngModelOptions]="{standalone: true}" [(ngModel)]="category">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputIngredients">Ingredient</label>
-            <input type="text" class="form-control" id="inputIngredients" placeholder="ingredient"
-                   [ngModelOptions]="{standalone: true}" [(ngModel)]="nameIngredient">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="amountIngredients">Amount</label>
-            <input type="text" class="form-control" id="amountIngredients" placeholder="amount"
-                   [ngModelOptions]="{standalone: true}" [(ngModel)]="amount">
-          </div>
-          <button type="button" class="btn btn-primary" (click)="addIngredient()">Add</button>
-        </div>
-        <div class="ingredientsList">
-          <ul class="list-group list-group-flush">
-            <tbody>
-            <table class="table table-striped">
-              <thead>
-              <tr>
-                <th scope="col">ingredient</th>
-                <th scope="col">amount</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let recipient of map | keyvalue">
-                <td>{{recipient.key}} </td>
-                <td>{{recipient.value}}</td>
-                <button (click)="editIngredient(recipient.key)">Edit</button>
-                <button (click)="deleteIngredient(recipient.key)">Delete</button>
-              </tr>
-              </tbody>
-            </table>
-          </ul>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label for="inputPortion">Portion</label>
-            <select id="inputPortion" class="form-control" (change)="selectPortion($event.target.value)">
-              <option selected>1os</option>
-              <option selected>2os</option>
-              <option selected>3os</option>
-              <option selected>4os</option>
-            </select>
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inputPreparationTime">Preparation time</label>
-            <select id="inputPreparationTime" class="form-control"
-                    (change)="selectPreparationTime($event.target.value)">
-              <option selected>15'</option>
-              <option selected>30'</option>
-              <option selected>45'</option>
-              <option selected>60'</option>
-              <option selected>1h15'</option>
-              <option selected>1h30'</option>
-            </select>
-          </div>
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
 
-        </div>
-        <button type="submit" class="btn btn-primary" (click)="addRecipe()">Add recipe</button>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Are You sure?</h4>
       </div>
-    </form>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="addRecipe()">Yes</button>
+      </div>
+    </div>
+
   </div>
 </div>
-</div>
-<!--
-        </div>-->
-
-<!--kontenery-->
-<!--<div class="row">
-  <div class="col">col</div>
-  <div class="col">col</div>
-  <div class="w-100"></div>
-  <div class="col">col</div>
-  <div class="col">col</div>
-</div>-->
-
+</form>

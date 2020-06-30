@@ -25,7 +25,7 @@ public class JwtToken implements Serializable {
 
     public String generateToken(User user) {
         System.out.println("User: " + user.getEmail());
-        return doGenerateToken(user.getEmail());
+        return doGenerateToken(user.getEmail(), user.getRole());
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
@@ -58,9 +58,9 @@ public class JwtToken implements Serializable {
                 .getBody();
     }
 
-    private String doGenerateToken(String subject) {
+    private String doGenerateToken(String subject, String role) {
         Claims claims = Jwts.claims().setSubject(subject);
-        claims.put("scopes", Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        claims.put("scopes", Collections.singletonList(new SimpleGrantedAuthority(role)));
 
         return Jwts.builder()
                 .setClaims(claims)

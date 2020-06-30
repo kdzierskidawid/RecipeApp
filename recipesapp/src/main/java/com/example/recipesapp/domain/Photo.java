@@ -14,13 +14,15 @@ public class Photo {
     @Id
     private String id;
 
+    private String photo;
     private String name;
-    private Binary mapImage;
+    private String largeImage;
 
 
-    public Photo(String name, Binary mapImage) {
+    public Photo(String name, String photo, String largeImage) {
+        this.photo = photo;
         this.name = name;
-        this.mapImage = mapImage;
+        this.largeImage = largeImage;
     }
 
 

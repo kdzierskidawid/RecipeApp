@@ -8,10 +8,14 @@ import com.example.recipesapp.repository.UserRepository;
 import com.example.recipesapp.services.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
@@ -38,9 +44,11 @@ public class UserController {
     @Autowired
     JavaMailSender javaMailSender;
 
+    String tempPassword;
+
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public User addStudent (@RequestBody @Valid User user){
@@ -85,8 +93,10 @@ public class UserController {
     @PostMapping("/register")
     public User registerUser(@RequestBody @Valid User user, HttpServletRequest request) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println("Hasło: " + user.getPassword());
+        System.out.println("Zahashowane Hasło: " + passwordEncoder.encode(user.getPassword()));
         user.setId(new ObjectId().toString());
-        user.setRole(Arrays.asList("ROLE_USER"));
+        //user.setRole("ROLE_USER");
         sendUserNotificationRabbit(user);
         return userService.save(user);
     }
@@ -138,5 +148,34 @@ public class UserController {
         return userService.exists(email);
     }
 
+    @GetMapping("/isActive/{email}")
+    public boolean isActive(@PathVariable String email) {
+        User user = userService.findOne(email);
+        return user.isActive();
+    }
 
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody @Valid User user) {
+        userService.deleteOne(user);
+    }
+
+    @PostMapping("/getPassword/{password}")
+    public void getPassword(@PathVariable String password){
+        tempPassword = password;
+    }
+
+
+    @PostMapping("/checkPassword")
+    public boolean checkPassword(@RequestBody @Valid User user, HttpServletRequest request) {
+        if (passwordEncoder.matches(tempPassword, user.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest request) throws ServletException {
+        request.logout();
+    }
 }

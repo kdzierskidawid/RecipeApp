@@ -25,16 +25,18 @@ public class Recipe {
     private String description;
     private String category;
     private HashMap<String, String> ingredients;
-    private User userId;
-    private Photo photo;
+    private String userId;
+    private String photo;
+    private List<String> gallery;
 
     protected Recipe() {
         this.ingredients = new HashMap<>();
+        this.gallery = new ArrayList<>();
     }
 
 
     public Recipe(String id, String name, String preparationTime, String portion, String description,
-                  HashMap<String, String> ingredients, User userId, String category, Photo photo) {
+                  HashMap<String, String> ingredients, String userId, String category, String photo, List<String> gallery) {
         this.id = id;
         this.name = name;
         this.preparationTime = preparationTime;
@@ -44,5 +46,6 @@ public class Recipe {
         this.ingredients = ingredients;
         this.userId = userId;
         this.photo = photo;
+        this.gallery = gallery;
     }
 }

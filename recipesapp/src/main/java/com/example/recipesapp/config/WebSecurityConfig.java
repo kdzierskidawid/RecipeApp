@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //User.withDefaultPasswordEncoder().username("user").password("user").roles("USER").build();
     }
 
-
+    //                .authorizeRequests().antMatchers("/recipes/*").hasAnyRole("ADMIN", "USER")
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -66,7 +66,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/token/*").permitAll()
                 .and()
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/users/register").permitAll()
+                .authorizeRequests().antMatchers("/users/*").permitAll()
+                .and()
+                .csrf().disable()
+                .authorizeRequests().antMatchers("/users/*/*").permitAll().and()
+                .csrf().disable()
+                .authorizeRequests().antMatchers("/users/delete").permitAll()
                 .and()
                 .csrf().disable()
                 .authorizeRequests().antMatchers("/confirm/registrationConfirm").permitAll()
@@ -79,9 +84,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests().antMatchers("/recipes/*").permitAll()
-               /* .and()
+                .and()
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/users/*").permitAll()*/
+                .authorizeRequests().antMatchers("/recipes/*/*").permitAll()
+                .and()
+                .csrf().disable()
+                .authorizeRequests().antMatchers("/recipes/name/*").permitAll()
+                /* .and()
+                 .csrf().disable()
+                 .authorizeRequests().antMatchers("/users/*").permitAll()*/
                 .and()
                 .authorizeRequests().antMatchers("/all").permitAll()
                 .and()

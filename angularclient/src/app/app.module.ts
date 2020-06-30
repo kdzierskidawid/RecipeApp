@@ -9,10 +9,10 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {UserService} from './components/services/user.service';
-import {AuthService} from './components/services/auth.service';
-import {TokenStorage} from './components/services/token.storage';
-import {Interceptor} from './components/services/inteceptor';
+import {UserService} from './services/user.service';
+import {AuthService} from './services/auth.service';
+import {TokenStorage} from './services/token.storage';
+import {Interceptor} from './services/inteceptor';
 import { AddRecipeComponent } from './components/recipes/add-recipe/add-recipe.component';
 import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
 import { InputFileConfig, InputFileModule } from 'ngx-input-file';
@@ -20,7 +20,11 @@ import { AllRecipesComponent } from './components/recipes/all-recipes/all-recipe
 import { RecipeDetailsComponent } from './components/recipes/recipe-details/recipe-details.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserRecipesComponent } from './components/recipes/user-recipes/user-recipes.component';
-
+import {ToastrModule} from 'ngx-toastr';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ManageUsersComponent } from './components/admin-panel/manage-users/manage-users.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { ManageRolesComponent } from './components/admin-panel/manage-roles/manage-roles.component';
 const config: InputFileConfig = {
   fileAccept: '*',
   fileLimit: 4
@@ -41,6 +45,9 @@ const config: InputFileConfig = {
     RecipeDetailsComponent,
     FooterComponent,
     UserRecipesComponent,
+    ManageUsersComponent,
+    SidenavComponent,
+    ManageRolesComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,9 +56,11 @@ const config: InputFileConfig = {
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     FormsModule,
     InputFileModule.forRoot(config),
     AppRoutingModule,
+
   ],
   providers: [UserService, AuthService, TokenStorage, TokenStorage, WelcomeComponent, PhotoUploadComponent,
     {
@@ -60,6 +69,8 @@ const config: InputFileConfig = {
       multi: true
     },
   ],
+
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

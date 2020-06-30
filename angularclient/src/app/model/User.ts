@@ -5,8 +5,8 @@ export class User {
   phoneNumber: string;
   email: string;
   password: string;
-  rolesIDs: string[]; //nazwy ról
-  isActive: boolean; //nazwy ról
+  role: string; //nazwy ról
+  isActive: boolean;
 
 
 
@@ -16,7 +16,7 @@ export class User {
               phoneNumber: string = null,
               email: string = null,
               password: string = null,
-              rolesIDs: string[] = ['ROLE_REGULAR_USER'],
+              role: string = null,
               isActive: boolean = false
              ) {
     this.id = id;
@@ -25,7 +25,7 @@ export class User {
     this.phoneNumber = phoneNumber;
     this.email = email;
     this.password = password;
-    this.rolesIDs = rolesIDs;
+    this.role = role;
     this.isActive = isActive;
   }
 }

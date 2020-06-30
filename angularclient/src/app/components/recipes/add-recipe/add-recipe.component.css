@@ -1,3 +1,94 @@
+.addrecipe{
+  margin-top: 30px;
+}
+
+.card-body{
+  max-width: 200px;
+}
+.form-row{
+  width: 300px;
+}
+
+body{
+  /*
+  background-color: #25274d;
+  */
+  background: inherit;
+  position: absolute;
+  background-color: #4a4a4a;
+}
+
+body:before{
+  content: ‘’;
+
+  background: inherit;
+  position: absolute;
+  left: -25px;
+right: 0;
+  top: -25px;
+bottom: 0;
+  box-shadow: inset 0 0 0 200px rgba(255,255,255,0.3);
+  filter: blur(10px);
+}
+
+.contact{
+  padding: 4%;
+  height: 400px;
+}
+.col-md-3{
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+.contact-info{
+  margin-top:10%;
+}
+.contact-info img{
+  margin-bottom: 15%;
+}
+.contact-info h2{
+  margin-bottom: 10%;
+}
+.col-md-9{
+  background: #fff;
+  padding: 3%;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+.contact-form label{
+  font-weight:600;
+}
+.contact-form button{
+  background: #25274d;
+  color: #fff;
+  font-weight: 600;
+  width: 25%;
+}
+.contact-form button:focus{
+  box-shadow:none;
+}
+
+.btn{
+  min-width: 150px;
+}
+
+select{
+  min-width: 150px;
+}
+
+.container-mid {
+  height: 200px;
+  position: relative;
+  border: 3px solid green;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+/*
 .forma{
   margin-left: -20%;
   margin-top: 2%;
@@ -36,3 +127,4 @@ textarea{
 .ingredientsList{
   margin-left: 0%;
 }
+*/
