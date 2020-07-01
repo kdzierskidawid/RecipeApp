@@ -67,7 +67,7 @@ export class AddRecipeComponent implements OnInit {
         this.imgFromLink.src = '';
         if (JSON.parse(localStorage.getItem('user')) !== null) {
             const userRole = JSON.parse(localStorage.getItem('user')).role;
-            if (this.authService.userLoggedIn && this.authService.isAdmin) {
+            if (this.authService.userLoggedIn) {
                 this.recipe.ingredients = new Map();
 
                 this.checkAllRecipes();

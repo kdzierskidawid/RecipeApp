@@ -3,34 +3,53 @@
   <div id="formContent">
     <!-- Tabs Titles -->
     <!-- Login Form -->
-    <form>
+    <form class="text-center border border-light p-5 register-form"
+          (ngSubmit)="f.form.valid && register()" #f="ngForm">
       <form class="text-center border border-light p-5" action="#!" autocomplete="off">
 
         <p class="h4 mb-4">Register</p>
 
         <!-- Email -->
-        <input type="text" id="email" name="email" class="form-control mb-4" placeholder="Email" [(ngModel)]="user.email">
+        <input type="text" id="email" name="email" class="form-control mb-4" placeholder="Email" [(ngModel)]="user.email"
+               [ngModelOptions]="{standalone: true}"
+               #email="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+               required
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        <small [hidden]="!email.errors?.pattern" class="form-text text-muted mb-4" >
+          Wprowadzono zły format
+        </small>
+        <small class="form-text text-muted mb-4" *ngIf="f.submitted && email.errors?.required">
+          Brak maila
+        </small>
 
         <!-- Password -->
         <input type="password" id="password" name="password" class="form-control mb-3" placeholder="Password" [(ngModel)]="user.password">
         <!-- firstname -->
-        <input type="text" id="firstname" name="firstname" class="form-control mb-4" placeholder="Firstname" [(ngModel)]="user.firstname">
-
+        <input type="text" id="firstname" name="firstname" class="form-control mb-4" placeholder="Firstname" [(ngModel)]="user.firstname"
+               #firstname="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }"
+               required
+               pattern="[a-zA-Z\s]+">
+        <small class="form-text text-muted mb-4" *ngIf="f.submitted && firstname.errors?.required" >
+          Imie jest wymagane
+        </small>
+        <small [hidden]="!firstname.errors?.pattern" class="form-text text-muted mb-4" >
+          Wprowadzono zły format
+        </small>
         <!-- surname -->
-        <input type="text" id="surname" name="surname" class="form-control mb-4" placeholder="Surname" [(ngModel)]="user.surname">
-
+        <input type="text" id="surname" name="surname" class="form-control mb-4" placeholder="Surname" [(ngModel)]="user.surname"
+               #surname="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && surname.invalid }"
+               required
+               pattern="[a-zA-Z\s]+">
+        <small class="form-text text-muted mb-4" *ngIf="f.submitted && surname.errors?.required" >
+          Nazwisko jest wymagane
+        </small>
+        <small [hidden]="!surname.errors?.pattern" class="form-text text-muted mb-4" >
+          Wprowadzono zły format
+        </small>
         <!-- phone -->
-        <input type="text" id="phone" name="phone" class="form-control mb-4" placeholder="Phone number" [(ngModel)]="user.phoneNumber">
-
-        <div class="d-flex justify-content-around">
-          <div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-              <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
-            </div>
-          </div>
-
-        </div>
 
         <button class="btn btn-info btn-block my-4" type="submit" (click)="register() " >Sign up
         </button>

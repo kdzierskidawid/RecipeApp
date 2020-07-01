@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
                                     }
                                 );
                             }
+                            this.toast.success('Zalogowano poprawnie');
                             this.router.navigate(['allrecipes']);
                         }
                         else{

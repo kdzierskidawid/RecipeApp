@@ -15,7 +15,7 @@ export class SignUpComponent implements OnInit {
   loading = true;
 
   constructor(private userService: UserService,
-              private router: Router) {
+              private router: Router, private toastr: ToastrService) {
     this.user = new User(null, null, null, null, null, null, null, false);
   }
 
@@ -26,17 +26,21 @@ export class SignUpComponent implements OnInit {
 
     this.userService.checkIfUserExists(this.user.email).subscribe(exists=>{
       if(exists){
-       // this.toast.error('Użytkownik o takim email istnieje!!');
+       this.toastr.error('Użytkownik o podanym emailu już istnieje!!');
       }
       else{
-        this.user.role = 'ROLE_USER';
-        this.userService.register(this.user).subscribe(
-            result => {
-              //this.toast.success('Zarejestrowano pomyślnie. Sprawdź email!');
-              this.loading = false;
-              console.log('Response' + result);
-            },
-            error => console.log('Error' + error));
+        if(this.checkEmail() && this.checkFirstame && this.checkSurname()){
+          this.user.role = 'ROLE_USER';
+          this.userService.register(this.user).subscribe(
+              result => {
+                //this.toast.success('Zarejestrowano pomyślnie. Sprawdź email!');
+                this.loading = false;
+                console.log('Response' + result);
+                this.toastr.success('Stworzono konto. Sprawdź pocztę i aktywuj konto!');
+              },
+              error => console.log('Error' + error));
+        }
+
       }
     });
 
@@ -49,5 +53,46 @@ export class SignUpComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  checkEmail() {
+    const numbers = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/;
+
+    if (numbers.test(this.user.email)) {
+      return true;
+    } else if (this.user.email === null) {
+      this.toastr.error('Nie podano emaila!');
+      return false;
+    } else {
+      this.toastr.error('Podano błędny format emaila');
+      return false;
+    }
+  }
+
+  checkFirstame() {
+    const numbers = /^[a-zA-Z\s]+/;
+
+    if (numbers.test(this.user.firstname)) {
+      return true;
+    } else if (this.user.firstname === null) {
+      this.toastr.error('Nie podano imienia');
+      return false;
+    } else {
+      this.toastr.error('Użyto niedopuszczalnych znaków');
+      return false;
+    }
+  }
+
+  checkSurname() {
+    const numbers = /^[a-zA-Z\s]+/;
+
+    if (numbers.test(this.user.surname)) {
+      return true;
+    } else if (this.user.surname === null) {
+      this.toastr.error('Nie podano nazwiska');
+      return false;
+    } else {
+      this.toastr.error('Użyto niedopuszczalnych znaków');
+      return false;
+    }
+  }
 
 }
